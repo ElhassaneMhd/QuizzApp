@@ -1,0 +1,28 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+
+* {
+    font-family: 'Protest Strike', sans-serif;
+    font-weight: 100;
+}
+
+::-webkit-scrollbar {
+    /* Customize the scrollbar width */
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    /* Customize the scrollbar track */
+    background: #ccc;
+    border-radius: 5px;
+
+}
+
+::-webkit-scrollbar-thumb {
+    /* Customize the scrollbar thumb */
+    background: #04235A;
+    border-radius: 5px;
+
+}
