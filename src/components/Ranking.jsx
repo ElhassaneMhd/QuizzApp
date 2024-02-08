@@ -13,7 +13,6 @@ function Ranking() {
     },[dispatch,wins,count])
     return (
         <>
-        <p className="text-text text-2xl m-1 md:ms-10 mt-2">Ranking</p>
         <section className="m-2 md:mx-10 md:mb-5 shadow-[0_9px_20px_rgb(0,0,0,0.5)] bg-text text-white p-3 md:p-5 flex justify-center rounded-md">
                 <div className="flex items-center gap-2">
                     <i className="fa-solid fa-ranking-star text-4xl text-orange-400"></i>

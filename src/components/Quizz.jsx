@@ -41,7 +41,7 @@ function Quizz() {
     
 
     return (
-        <section className="p-5 mx-20">
+        <section className="p-5 mx-2 md:mx-20">
             <p className=' text-textSecond text-xl' >
                 <i className="fa-solid fa-arrow-left" />
                 <span className='cursor-pointer' onClick={() => dispatch(stop())}> retour</span>
@@ -67,7 +67,7 @@ export default Quizz
 
 function StartCount({count}) {
     return (
-        <section className="flex flex-col items-center justify-center ">
+        <section className="flex flex-col items-center justify-center h-[80vh]">
             <p className="text-4xl text-text ">get ready !!</p>
             <p className="text-9xl text-text mt-8 animate-ping">{count }</p>
         </section>
@@ -103,7 +103,7 @@ function Finish({ score, answred ,numberQuestions}) {
         // eslint-disable-next-line
     },[])
     return (
-        <div className="flex flex-col text-2xl items-center justify-center">
+        <div className="flex flex-col text-2xl items-center justify-center min-h-[85vh]">
             <p>Quiz Finished</p>
             <div className="grid grid-cols-2">
                 <span> score  </span><span>: {score}%</span>
@@ -116,10 +116,10 @@ function Finish({ score, answred ,numberQuestions}) {
 function QuestionCard({ questions, index }) {
     const {question,correct_answer,incorrect_answers}=questions[index]
     return (
-        <>
+        <div className="min-h-[65vh]">
             <Question question={question} />
             <Options correct={correct_answer } incorrect={incorrect_answers} />
-        </>
+        </div>
     )
 }
 function Question({ question }) {

@@ -26,7 +26,7 @@ function Categories() {
        !Allcategories&&dispatch(getCategories())
     },[dispatch,Allcategories])
     return (
-        <section className=' px-2 md:px-10 md:relative '>
+        <section className='h-[59vh] px-2 md:px-10 md:relative '>
             <div className='flex justify-between px-3'>
                 <p className=" text-text text-xl md:text-2xl"> Quiz Categories</p>
                 <p className='peer cursor-pointer text-lg md:text-xl text-textSecond'> view more</p>
@@ -42,7 +42,7 @@ function Categories() {
                     )}
                 </div>
             </div>
-            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5' >
+            <div className='grid h-[53vh] scroll overflow-y-auto grid-cols-2 p-1 sm:grid-cols-3 md:grid-cols-5' >
                 {topCategories?.map(e => <Category difficulty={difficulty} numberQuestions={numberQuestions} key={e.id} id={e.id} name={ e.name} icon={e.icons} />)}
             </div>
         </section>
@@ -53,14 +53,14 @@ function Category({ name, icon, id,difficulty,numberQuestions }) {
     const dispatch =useDispatch()
 
     return (
-        <div className="p-2 text-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex bg-white flex-col justify-center  cursor-pointer hover:scale-105 m-1 rounded-lg text-center"
+        <div className="p-1 md:p-2 text-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex bg-white flex-col justify-center  cursor-pointer hover:scale-105 m-1 rounded-lg text-center"
             onClick={() => {
                 dispatch(getData(id,numberQuestions,difficulty));
                 dispatch(ready())
             }}
         >
             <i className={`${icon} text-second text-xl `}></i>
-            <p className='text-dark'> {name.includes('Entertainment:')?name.slice(14):name}</p>
+            <p className='text-dark  max-sm:text-base md:text-xl'> {name.includes('Entertainment:')?name.slice(14):name}</p>
         </div>
     )
 }
