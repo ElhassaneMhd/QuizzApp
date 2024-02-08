@@ -42,7 +42,7 @@ function Categories() {
                     )}
                 </div>
             </div>
-            <div className='grid max-sm:h-[40vh] scroll overflow-y-auto grid-cols-2 p-1 sm:grid-cols-3 md:grid-cols-5' >
+            <div className='grid max-sm:h-[40vh] w-full scroll overflow-y-auto grid-cols-2 p-1 sm:grid-cols-3 md:grid-cols-5' >
                 {topCategories?.map(e => <Category difficulty={difficulty} numberQuestions={numberQuestions} key={e.id} id={e.id} name={ e.name} icon={e.icons} />)}
             </div>
         </section>
