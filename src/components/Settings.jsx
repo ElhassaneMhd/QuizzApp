@@ -36,6 +36,7 @@ function Settings() {
                         <Difficulty difficulty={ difficulty}  difName={'hard'}/>
                     </ContainerSettings>
                 </div>
+                <hr className=' ' />
                 <p className='text-text text-xl'>Sound Settings :</p>
                 <Sound sound={sound}/>
             </div>

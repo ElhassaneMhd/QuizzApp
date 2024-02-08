@@ -26,7 +26,7 @@ function Categories() {
        !Allcategories&&dispatch(getCategories())
     },[dispatch,Allcategories])
     return (
-        <section className='h-[59vh] px-2 md:px-10 md:relative '>
+        <section className='h-[50vh] px-2 md:px-10 md:relative '>
             <div className='flex justify-between px-3'>
                 <p className=" text-text text-xl md:text-2xl"> Quiz Categories</p>
                 <p className='peer cursor-pointer text-lg md:text-xl text-textSecond'> view more</p>
@@ -42,7 +42,7 @@ function Categories() {
                     )}
                 </div>
             </div>
-            <div className='grid h-[53vh] scroll overflow-y-auto grid-cols-2 p-1 sm:grid-cols-3 md:grid-cols-5' >
+            <div className='grid max-sm:h-[30vh] scroll overflow-y-auto grid-cols-2 p-1 sm:grid-cols-3 md:grid-cols-5' >
                 {topCategories?.map(e => <Category difficulty={difficulty} numberQuestions={numberQuestions} key={e.id} id={e.id} name={ e.name} icon={e.icons} />)}
             </div>
         </section>
