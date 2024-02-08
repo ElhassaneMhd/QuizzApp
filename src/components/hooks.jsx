@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-export function useSetToLocaleStorage(score,allScores) {
+export function useSetToLocaleStorage(score,liste) {
     const [scores, setscores] = useState(() =>
-        localStorage.getItem(allScores)
-          ? [...JSON.parse(localStorage.getItem(allScores))]
+        localStorage.getItem(liste)
+          ? [...JSON.parse(localStorage.getItem(liste))]
           : []
     );
     useEffect(() => {
       function additem() {
         setscores((e) => [...e, score]);
         localStorage.setItem(
-          allScores,
+          liste,
           JSON.stringify([...scores, score])
         );
       }
@@ -19,4 +19,23 @@ export function useSetToLocaleStorage(score,allScores) {
       /*eslint-disable-next-line*/
     }, [score]);
     return { scores, setscores };
+}
+export function useIncrLocaleStorage(increment, item) {
+   const [value, setValue] = useState(() =>
+        localStorage.getItem(item)
+          ? localStorage.getItem(item)
+          : 0
+  );
+  useEffect(() => {
+    function incre() {
+         setValue((e) => e+increment);
+        localStorage.setItem(
+          item,
+          Number(value)+increment
+      );
+    }
+    incre()
+    // eslint-disable-next-line
+  }, [increment])
+  return value 
 }

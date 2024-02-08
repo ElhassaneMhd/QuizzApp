@@ -6,7 +6,6 @@ import GameTypes from "./GameTypes"
 
 function Main() {
     const status = useSelector(store => store.gamplayStore.status)
-
     return (
         <main>
             {status === 'stop'?
@@ -16,9 +15,7 @@ function Main() {
                     <Categories />
                 </>
                 :
-                <>
-                    <Quizz/>
-                </>
+                 <Quizz/>
             }
 
         </main>

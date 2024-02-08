@@ -6,7 +6,7 @@ function gamePlayReducer(state={count:0,status:'stop',score:0,answred:0,allScore
         case 'ready':
             return { ...state, status: 'ready',score:0,answred:0 }
         case 'playing':
-            return { ...state, status: 'playing',count:state.count+1 }
+            return { ...state, status: 'playing' }
         case 'finish':
             return { ...state, status: 'finish' }
         case 'correct':
@@ -14,7 +14,9 @@ function gamePlayReducer(state={count:0,status:'stop',score:0,answred:0,allScore
         case 'allScores':
             return { ...state, allScores: [...state.allScores, action.payload] }
         case 'win':
-            return {...state,wins:state.wins+1}
+            return { ...state, wins: action.payload }
+        case 'counter':
+            return {...state,count:action.payload}
         default:
             return {...state}
     }
@@ -38,8 +40,11 @@ function correct() {
 function addScore(score) {
     return({type:'allScores',payload:score})
 }
-function win() {
-    return({type:'win'})
+function win(wins) {
+    return({type:'win',payload:wins})
+}
+function counter(number) {
+    return({type:'counter',payload:number})
 }
 
- export {gamePlayReducer,stop,ready,playing,finish,correct,addScore,win}
+ export {gamePlayReducer,stop,ready,playing,finish,correct,addScore,win,counter}

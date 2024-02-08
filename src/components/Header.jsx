@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 function Header() {
     return (
-        <header className="flex justify-between items-center  py-2  mx-10 ">
+        <header className="flex justify-between items-center  py-2 mx-2  md:mx-10 ">
             <div className="text-2xl">
-                <p className=" text-text">Quizz<span className='text-second'>App</span> </p>
+                <p className=" text-text">Start<span className='text-second'>Quizz</span> </p>
                 <span className="text-textSecond text-lg">let&apos;s <span className='text-second'>play</span> the <span className='text-text'>quiz</span></span>
             </div>
             <div>
@@ -14,7 +14,7 @@ function Header() {
                 <span className='group relative px-2 cursor-pointer text-text '>
                     <i className="text-2xl fa-solid fa-bars"></i>
                       <div className="absolute shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl flex flex-col bg-white p-1 right-0 top-5 cursor-pointer translate-x-16 scale-0 group-hover:scale-100 hover:scale-100 hover:translate-x-0 group-hover:translate-x-0 transition hover:duration-300">
-                        <Link  to={'/settings'} className='px-2 text-text rounded-md m-[1px] hover:bg-light hover:scale-105' >Settings</Link>
+                        <Link  to={'/settings'} className='px-2 text-text flex items-center gap-1 rounded-md m-[1px] hover:bg-light hover:scale-105' >Settings<i className="text-sm fa-solid fa-gear"></i></Link>
                     </div>
                 </span>
             </div>

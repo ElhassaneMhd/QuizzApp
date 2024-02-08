@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { finish, playing, stop,correct as incrScore, addScore, win } from "../redux/gamePlayReducer"
 import { useEffect, useRef, useState } from "react"
-import { useSetToLocaleStorage } from "./hooks"
+import { useIncrLocaleStorage, useSetToLocaleStorage } from "./hooks"
 
 function Quizz() {
-    const {status,score,answred,allScores} = useSelector(store => store.gamplayStore)
+    const { status, score, answred } = useSelector(store => store.gamplayStore)
     const {questions} = useSelector(store => store.questionStore)
     const settings = useSelector(store => store.settingsStore)
     const dispatch = useDispatch()
@@ -29,14 +29,15 @@ function Quizz() {
         if (status==='playing'){
             const id=setInterval(() => {
                 if (timer > 0) setTimer(e => e - 1)
-                else if(index<9) {
+                else if(index<settings.numberQuestions-1) {
                     setTimer(settings.timer)
                     setindex(e=>e+1)
-                } else dispatch(finish())
+                }
+                else dispatch(finish())
             }, 1000)  
             return ()=>clearInterval(id)
         }    
-    }, [timer, dispatch, status,index])
+    }, [timer, dispatch, status,index,settings])
     
 
     return (
@@ -51,11 +52,11 @@ function Quizz() {
             <>
                 <ProgressBar timer={timer} index={index} score={score} number={questions.length} />
                 <QuestionCard index={index} questions={questions} />
-                <Skip setindex={setindex} setTimer={ setTimer} index={index} timer={settings.timer} />
+                <Skip setindex={setindex} setTimer={ setTimer} index={index} settings={settings} />
                 
             </>
             }
-            {status === 'finish' &&  <Finish score={score} answred={answred} allScores={allScores} />   }
+            {status === 'finish' && <Finish score={score} answred={answred}  numberQuestions={settings.numberQuestions} />   }
 
         </section>
     )
@@ -86,23 +87,28 @@ function ProgressBar({timer,number,index,score}) {
         </div>
     )
 }
-function Finish({ score, answred ,allScores}) {
+function Finish({ score, answred ,numberQuestions}) {
     const dispatch = useDispatch()
 
-    useSetToLocaleStorage(score,allScores)
+    useSetToLocaleStorage(score, 'allScores')
+    useIncrLocaleStorage(1, 'gamePlays')
+
     useEffect(() => {
         dispatch(addScore(score))
-        if (score === 100) dispatch(win())
+        if (score === numberQuestions * 10) {
+            localStorage.setItem('wins',Number(localStorage.getItem('wins'))+1)
+            dispatch(win(Number(localStorage.getItem('wins'))))
+        }
         
         // eslint-disable-next-line
-    },[score])
+    },[])
     return (
         <div className="flex flex-col text-2xl items-center justify-center">
             <p>Quiz Finished</p>
             <div className="grid grid-cols-2">
                 <span> score  </span><span>: {score}%</span>
                 <span> correct question</span><span>  : {answred}</span>
-                <span> incorrect question</span><span> : {10 - answred}</span>
+                <span> incorrect question</span><span> : {numberQuestions - answred}</span>
             </div>
         </div>
     )
@@ -129,12 +135,14 @@ function Question({ question }) {
     )
 }
 function Options({ correct, incorrect }) {
+    const {sound}=useSelector(store=>store.settingsStore)
     const trueAnswer = useRef(null)
     const wrongAnswer = useRef(null)
     const dispatch = useDispatch()
     const options = [...incorrect, correct].sort()
     const [answer, setAnswer] = useState({})
     const [isCorrect, setisCorrect] = useState()
+    const [isAnswred, setisAnswred] = useState()
     
     function decodeHtmlEntities(encodedString) {
         const tempElement = document.createElement('p');
@@ -145,6 +153,7 @@ function Options({ correct, incorrect }) {
     useEffect(() => {
         setAnswer({}) 
         setisCorrect()
+        setisAnswred()
     },[correct,incorrect])
 
     useEffect(() => {
@@ -169,9 +178,11 @@ function Options({ correct, incorrect }) {
                     <input 
                         className="w-full cursor-pointer p-3 h-full text-2xl"
                         type="button" value={decodeHtmlEntities(e)}
-                        onClick={(e) => {!answer.value && setAnswer({ id: i, value: e.target.value })
-                            !answer.value && e.target.value === correct ? trueAnswer.current.play() : wrongAnswer.current.play()
-                            e.target.value === correct &&options.indexOf(correct) === i&&dispatch(incrScore())
+                        onClick={(e) => {
+                            !answer.value && setAnswer({ id: i, value: e.target.value })
+                            sound&&(!answer.value && e.target.value === correct ? trueAnswer.current.play() : wrongAnswer.current.play())
+                            !isAnswred && e.target.value === correct && options.indexOf(correct) === i && dispatch(incrScore())
+                            setisAnswred(true)
                             }
                         }
                     />
@@ -184,14 +195,14 @@ function Options({ correct, incorrect }) {
         </>
     )
 }
-function Skip({ setindex, setTimer, index,timer }) {
+function Skip({ setindex, setTimer, index,settings }) {
     const dispatch =useDispatch()
     return (
         <div className="flex justify-end text-xl">
             <span onClick={() => {
-                if (index < 9) { 
+                if (index < settings.numberQuestions-1) { 
                     setindex(e => e + 1)
-                    setTimer(timer)
+                    setTimer(settings.timer)
                 } else {
                     dispatch(finish())
                 }
