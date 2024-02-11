@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router"
-import { setDifficulty, setNumberQuestions, setTimer ,setSound} from "../redux/settingsReducer"
+import { setDifficulty, setNumberQuestions, setTimer ,setSound} from "../../redux/settingsReducer"
+import { useStoredSettings } from "../hooks"
 
 function Settings() {
     const { timer, numberQuestions, difficulty ,sound} = useSelector(store => store.settingsStore)
     const navigate = useNavigate()
+    useStoredSettings('timer',timer)
     return (
         <section className="mx-5 sm:mx-10 xl:mx-14 mt-0 p-1 flex flex-col items-center md:px-10 h-[90vh]">  
              <p className="text-textSecond mb-5 w-full text-xl">
@@ -57,8 +59,8 @@ function Timer({ timer ,number}) {
 function NumberQ({ numberQuestions ,number}) {
     const dispatch = useDispatch()
     return (
-        <span className={`${numberQuestions==number?"bg-text text-white":"border border-text"} cursor-pointer hover:scale-105 px-3 rounded-md`}  onClick={() => dispatch(setNumberQuestions(number))}>{number}s</span> 
-        )
+        <span className={`${numberQuestions==number?"bg-text text-white":"border border-text"} cursor-pointer hover:scale-105 px-3 rounded-md`}  onClick={() => dispatch(setNumberQuestions(number))}>{number}</span> 
+    )
 }
 function Difficulty({ difficulty ,difName}) {
     const dispatch = useDispatch()
@@ -89,7 +91,7 @@ function Sound({ sound }) {
 }
 function SettingProperty({name,icon}) {
     return (
-        <span className="text-dark underline my-1"> {name} <i className={`fa-solid fa-${icon} text-second`} /></span>
+        <span className="text-dark underline my-2 md:my-3"> {name} <i className={`fa-solid fa-${icon} text-second`} /></span>
 
     )
 }

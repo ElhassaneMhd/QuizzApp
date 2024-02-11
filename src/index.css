@@ -13,6 +13,7 @@
     /* Customize the scrollbar width */
     width: 8px;
 }
+
 ::-webkit-scrollbar-track {
     /* Customize the scrollbar track */
     background: #ccc;

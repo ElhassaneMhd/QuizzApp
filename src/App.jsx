@@ -1,7 +1,7 @@
 
 import { BrowserRouter,Routes,Route } from "react-router-dom"
 import Main from "./components/Main"
-import Settings from "./components/Settings"
+import Settings from "./components/pages/Settings"
 import Footer from "./components/Footer"
 function App() {
 

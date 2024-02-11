@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { counter, win } from "../redux/gamePlayReducer"
+import { counter, win } from "../../redux/gamePlayReducer"
 import { useDispatch } from "react-redux"
 
 function Ranking() {

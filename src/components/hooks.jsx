@@ -23,7 +23,7 @@ export function useSetToLocaleStorage(score,liste) {
 export function useIncrLocaleStorage(increment, item) {
    const [value, setValue] = useState(() =>
         localStorage.getItem(item)
-          ? localStorage.getItem(item)
+          ? Number(localStorage.getItem(item))
           : 0
   );
   useEffect(() => {
@@ -38,4 +38,15 @@ export function useIncrLocaleStorage(increment, item) {
     // eslint-disable-next-line
   }, [increment])
   return value 
+}
+export function useStoredSettings(value, item) {
+  const settings = JSON.stringify(localStorage.getItem('settings'))||localStorage.setItem('settings',JSON.parse({timer:10,difficulty:''}))
+  
+  useEffect(() => {
+    if (item==='timer') localStorage.setItem('settings',JSON.parse({...settings,timer:value}));
+    if (item==='numberQuestions') localStorage.setItem('settings',JSON.parse({...settings,timer:value}));
+    if (item==='difficulty') localStorage.setItem('settings',JSON.parse({...settings,timer:value}));
+  }, [item, value, settings])
+
+  return settings
 }
