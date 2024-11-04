@@ -1,4 +1,7 @@
-export function ProgressBar({timer,number,index,score}) {
+import { useQuiz } from "./context/QuizContext"
+
+export function ProgressBar() {
+    const { timer, number, index, score } = useQuiz();
     return (
         <div className='flex flex-col items-center'>
            <span className="text-center animate-ping">{timer}</span>   

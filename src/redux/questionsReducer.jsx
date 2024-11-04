@@ -18,7 +18,6 @@ function getData(cat,amount=10,difficulty='') {
     return async function(dispatch){
         const res = await fetch(`https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&category=${cat}&type=multiple`)
         const data = await res.json()
-        console.log(data.results)
        await dispatch({type:'get',payload:[...data.results]})
     }
 }

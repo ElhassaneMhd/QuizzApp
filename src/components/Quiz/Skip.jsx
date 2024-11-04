@@ -1,7 +1,9 @@
 import { useDispatch } from "react-redux"
 import { finish } from "../../redux/gamePlayReducer"
+import { useQuiz } from "./context/QuizContext"
 
-export function Skip({ setindex, setTimer, index,settings }) {
+export function Skip() {
+    const { setindex, setTimer, index,settings }=useQuiz()
     const dispatch =useDispatch()
     return (
         <div className="flex justify-end text-xl">

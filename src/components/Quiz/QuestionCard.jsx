@@ -1,18 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { correct as incrScore } from "../../redux/gamePlayReducer"
+import { useQuiz } from "./context/QuizContext";
 
+const QuestionContext = createContext();
 
-export function QuestionCard({ questions, index }) {
-    const {question,correct_answer,incorrect_answers}=questions[index]
+export function QuestionCard() {
+    const { questions, index }=useQuiz()
+    const { question, correct_answer, incorrect_answers } = questions[index]
+    
     return (
         <div className="min-h-[65vh]">
-            <Question question={question} />
-            <Options correct={correct_answer } incorrect={incorrect_answers} />
+            <QuestionContext.Provider value={{question,correct:correct_answer,incorrect:incorrect_answers}}>
+                <Question  />
+                <Options />
+            </QuestionContext.Provider>
         </div>
     )
 }
-function Question({ question }) {
+function Question() {
+    const { question }=useContext(QuestionContext)
       function decodeHtmlEntities(encodedString) {
         const tempElement = document.createElement('p');
         tempElement.innerHTML = encodedString;
@@ -24,7 +31,8 @@ function Question({ question }) {
         </div>
     )
 }
-function Options({ correct, incorrect }) {
+function Options() {
+    const { correct,incorrect }=useContext(QuestionContext)
     const {sound}=useSelector(store=>store.settingsStore)
     const trueAnswer = useRef(null)
     const wrongAnswer = useRef(null)

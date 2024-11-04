@@ -1,9 +1,11 @@
 import { useDispatch } from "react-redux"
 import { useIncrLocaleStorage, useSetToLocaleStorage } from "../hooks"
-import { useEffect, useRef, useState } from "react"
+import {  useEffect, useRef, useState } from "react"
 import { addScore, win } from "../../redux/gamePlayReducer"
+import {  useQuiz } from "./context/QuizContext"
 
-export function Finish({ score, answred, numberQuestions }) {
+export function Finish() {
+    const { score, answred, numberQuestions }=useQuiz()
     const dispatch = useDispatch()
     const [isWinner,setIsWinner]=useState()
 
