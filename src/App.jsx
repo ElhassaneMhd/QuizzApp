@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import Settings from "./components/pages/Settings";
-import Footer from "./components/Footer";
 function App() {
   return (
     <>
@@ -13,7 +12,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-      <Footer />
     </>
   );
 }
